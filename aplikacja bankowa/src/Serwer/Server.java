@@ -35,6 +35,9 @@ public class Server {
 
 public static void main(String[] args) {
 
+
         Server serwer1 = new Server(8512);
-}}
+
+
+    }}
 

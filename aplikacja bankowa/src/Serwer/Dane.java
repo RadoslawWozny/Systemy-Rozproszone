@@ -55,6 +55,22 @@ public class Dane {
         writer.close();
     }
 
+    public static boolean sprawdzCzyKontoIstnieje(String nrkonta) throws FileNotFoundException {
+        boolean istnieje = false;
+        File dane = new File("src/Serwer/DaneUzytkownikow.csv");
+        Scanner sc = new Scanner(dane);
+        sc.useDelimiter(",");
+
+        while (sc.hasNextLine()) {
+            if (nrkonta.equals(sc.next())) {
+                istnieje = true;
+            } else sc.nextLine();
+        }
+
+        return istnieje;
+
+    }
+
 
 
 

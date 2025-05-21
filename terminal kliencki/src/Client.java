@@ -35,18 +35,23 @@ public class Client {
             System.out.println(i);
         }
         // logowanie
-        System.out.println("Podaj numer konta na ktore chcesz sie zalogowac: [Logowanie WIP]");
+        System.out.println("Podaj numer konta na ktore chcesz sie zalogowac: ");
         boolean zalogowano = false;
-        while(!zalogowano && !server_input.equals(null)) {
+        while(!zalogowano) {
             try {
             input_string = input.readLine();
+            String nrkonta = input_string;
             output.writeBytes(input_string + "\r");
             output.flush();
             server_string = server_input.readLine();
             if (server_string.equals("tak")) {
                 zalogowano = true;
+                System.out.println("Poprawnie zalogowano na konto " + nrkonta);
             }
-            else {System.out.println(server_string);}
+            else {System.out.println(server_string);
+                if (server_string.equals("Podane haslo nie jest poprawne")) {
+                System.out.println("Podaj numer konta na ktore chcesz sie zalogowac: ");
+            }}
         } catch (IOException i) {
             System.out.println(i);
         }
@@ -58,7 +63,7 @@ public class Client {
                 input_string = input.readLine();
                 if (input_string != null) {
                     System.out.println("wyslano do serwera komende: " + input_string);
-                    output.writeBytes(input_string + "\n");
+                    output.writeBytes(input_string + "\r");
                     output.flush();
                 }
                 server_string = server_input.readLine();
@@ -66,6 +71,7 @@ public class Client {
             }
             catch (IOException i) {
                 System.out.println(i);
+                return;
             }
             if (input_string.equals("exit")) {
                 try {
@@ -75,6 +81,7 @@ public class Client {
                 }
                 catch (IOException i) {
                     System.out.println(i);
+                    return;
                 }
             }
         }
