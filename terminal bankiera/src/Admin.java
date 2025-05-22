@@ -1,7 +1,7 @@
 import java.io.*;
 import java.net.*;
 
-public class Client {
+public class Admin {
 
     Socket s = null;
     BufferedReader input = null;
@@ -9,7 +9,7 @@ public class Client {
     DataOutputStream output = null;
 
 
-    public Client(String adres, int port) {
+    public Admin(String adres, int port) {
         try {
             s = new Socket(adres, port);
         } catch (UnknownHostException u) {
@@ -35,33 +35,33 @@ public class Client {
             System.out.println(i);
         }
         // logowanie
-        System.out.println("Podaj numer konta na ktore chcesz sie zalogowac: ");
         boolean zalogowano = false;
-        while(!zalogowano) {
-            try {
-            input_string = input.readLine();
-            String nrkonta = input_string;
-            output.writeBytes(input_string + "\r");
-            output.flush();
-            server_string = server_input.readLine();
-            if (server_string.equals("tak")) {
-                zalogowano = true;
-                System.out.println("Poprawnie zalogowano na podane konto ");
+        try {
+            while (!zalogowano) {
+
+                output.writeBytes("admin" + "\r");
+                output.flush();
+
+                server_string = server_input.readLine();
+                System.out.println(server_string);
+                input_string = input.readLine();
+                output.writeBytes(input_string + "\r");
+                output.flush();
+                if (server_string.equals("zalogowano na konto administratorskie")) {
+                    server_string = server_input.readLine();
+                    System.out.println(server_string);
+                    zalogowano = true;
+                }
+
             }
-            else {System.out.println(server_string);
-                if (server_string.equals("Podane haslo nie jest poprawne")) {
-                System.out.println("Podaj numer konta na ktore chcesz sie zalogowac: ");
-            }}
-        } catch (IOException i) {
+
+        }
+        catch (IOException i) {
             System.out.println(i);
         }
-        }
+
         // petla glowna
-        System.out.println("Dostepne komendy: " + "\n" + "\"stan konta\" - aby sprawdzic stan konta"
-        + "\n" + "\"przelew\" - aby wykonac przelew srodkow na inne konto"
-        + "\n" + "\"wplata\" - aby dokonac wplaty srodkow na konto"
-        + "\n" + "\"wyplata\" - aby wyplacic srodki z konta"
-        + "\n" + "\"wyswietl dane\" - aby wyswietlic dane konta" );
+        System.out.println("Dostepne komendy: " + "\n" + "\"zmien dane\" - aby zmienic wybrane dane konta");
         while (true) {
             try {
 
@@ -97,7 +97,7 @@ public class Client {
 
     public static void main(String[] args) {
 
-        Client klient1 = new Client("localhost",8512);
+        Admin admin1 = new Admin("localhost",8512);
     }
 
 
