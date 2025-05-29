@@ -63,10 +63,11 @@ public class ServerThreads implements Runnable{
 
              input_line = input.readLine();
                  if (input_line.equals("admin123")) {
-                     output.writeBytes("zalogowano na konto administratorskie" + "\r");
+                     output.writeBytes("abcd" + "\r");
                      output.flush();
                      admin = true;
                      zalogowano = true;
+                     System.out.println(threadName + ": " + "zalogowano na konto administratorskie ");
                  }
                  else {
                      output.writeBytes("Podane haslo nie jest poprawne" + "\r");

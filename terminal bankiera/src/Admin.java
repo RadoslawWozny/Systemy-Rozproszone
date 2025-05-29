@@ -36,28 +36,23 @@ public class Admin {
         }
         // logowanie
         boolean zalogowano = false;
-        try {
-            while (!zalogowano) {
-
-                output.writeBytes("admin" + "\r");
+        String a = "admin";
+        while (!zalogowano) {
+            try {
+                output.writeBytes(a + "\r");
                 output.flush();
-
-                server_string = server_input.readLine();
-                System.out.println(server_string);
+                System.out.println("Podaj haslo do konta administratorkiego");
                 input_string = input.readLine();
                 output.writeBytes(input_string + "\r");
                 output.flush();
-                if (server_string.equals("zalogowano na konto administratorskie")) {
-                    server_string = server_input.readLine();
-                    System.out.println(server_string);
+                server_string = server_input.readLine();
+                if (server_string.equals("abcd")) {
+                    System.out.println("zalogowano na konto administratorskie");
                     zalogowano = true;
                 }
-
+            } catch (IOException i) {
+                System.out.println(i);
             }
-
-        }
-        catch (IOException i) {
-            System.out.println(i);
         }
 
         // petla glowna
